@@ -1,2 +1,4 @@
-# simple_sql_server_diary
-build a simple diary that saves entries to a sql server with flask
+# flask-brython-example
+
+To run the example application:
+`FLASK_APP=app.py flask run`
