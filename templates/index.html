@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Predict</title>
+    <title>Diary</title>
     <script type="text/javascript" src="brython.js"></script>
     <script type="text/javascript" src="brython_stdlib.js"></script>
   </head>
@@ -20,16 +20,17 @@
           """Get the predicted probability."""
           req = ajax.ajax()
           req.bind('complete', show_results)
-          req.open('POST', '/predict', True)
+          req.open('POST', '/store_to_db', True)
           req.set_header('content-type','application/json')
-          data = json.dumps({'user_input1': document['user_input1'].value
+          data = json.dumps({'user_input1': document['user_input1'].value,
                              'user_input2': document['user_input2'].value})
+          req.send(data)
 
       document["save_entry"].bind("click", save_to_sql)
     </script>
     <textarea id="user_input1"></textarea>
     <textarea id="user_input2"></textarea>
-    <button id="save_entry">save_entry</button>
+    <button id="save_entry">Save entry!</button>
     <div id="result"></div>
   </body>
 </html>

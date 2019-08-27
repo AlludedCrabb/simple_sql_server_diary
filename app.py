@@ -11,17 +11,18 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/predict', methods=['GET', 'POST'])
-def predict():
+@app.route('/store_to_db', methods=['GET', 'POST'])
+def store_to_db():
     """Return a random prediction."""
     data = request.json
     conn = psycopg2.connect('dbname=diarydb')
     cur = conn.cursor()
     query = f"""
     INSERT INTO diary ( date, entry) VALUES
-    ({"'" + data['user_input1']+ "'"}, {"'"+data['user_input2']+"'"});
+    ({"'" + data['user_input1'].replace("'", "")+ "'"},
+     {"'"+ data['user_input2'].replace("'", "")+"'"});
     """
-cur.execute(query)
-conn.commit()
+    cur.execute(query)
+    conn.commit()
     return jsonify('diary entry saved')
 
